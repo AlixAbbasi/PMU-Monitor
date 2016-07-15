@@ -36,15 +36,15 @@ static int __init enable_pmu_init(void)
     unsigned long value = 0;
 
     value = arm_useren_read();
-    printk ("arm_useren_read value is %lu \n", value);
+    printk ("ARM PMU bit value is %lu \n", value);
     // Set the enable bit
     value |= 1;
 
     // Write new value to enable user-space access to the Performance Monitor counters
     arm_useren_write(value);
 
-    printk ("enable_pmu: Enabled PMU access from user space\n");
-    printk ("again arm_useren_read value is %lu \n", value);
+    printk ("PMU Enabled?: The PMU is now accesible in user mode\n");
+    printk ("ARM PMU bit value is %lu \n", value);
 //    value2 = arm_useren_write();
 //    printk ("arm_useren_write value is $lu\n", value2);
     return(st);
@@ -58,7 +58,7 @@ static void __exit enable_pmu_exit(void)
     unsigned long value;
 //   unsigned long value2
     value = arm_useren_read();
-    printk ("enable_pmu exit: read %lu\n",value);
+    printk ("PMU exit ?: read %lu\n",value);
 
     // Clear the enable bit
     value &= 0xfffffffe;
@@ -66,7 +66,7 @@ static void __exit enable_pmu_exit(void)
     // Write new value to disable user-space access to the Performance Monitor counters
     arm_useren_write(value);
 
-    printk ("enable_pmu: Disabled PMU access from user space\n");
+    printk ("PMU access in user mode disabled\n");
 }
 
 module_init(enable_pmu_init);
